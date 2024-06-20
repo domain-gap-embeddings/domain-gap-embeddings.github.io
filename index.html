@@ -41,6 +41,7 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </head>
 <body>
 
@@ -161,8 +162,58 @@
       </div>
     </div>
     <!--/ Abstract. -->
+
+    <!-- Method. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+        <div style="display: flex; justify-content: center;">
+          <img src="./static/images/method.png" alt="Teaser Image" style="width: 100%; height: auto;">
+        </div>
+        <div style="text-align: center;">
+          <figcaption><br>Our two-phase inference-only augmentation framework: (left) domain gap extraction (right) target domain generation.</figcaption>
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            <p>Above shows our proposed framework of Domain Gap Embeddings for Generative Dataset Augmentation.</p>
+          <p>The left part illustrates the process of <b>Domain Gap Extraction:</b></p>
+
+          <ol>
+            <li>The input consists of <span style="color: #538235;"><b>(a) a source dataset \(\mathcal{D_S}\)</b></span>, 
+              with \(|\mathcal{D_S}|=N\), and <span style="color: #BF9001;"><b>(b) a few data samples</b> \(\mathcal{D_T}=\{y_j\}_{j=1}^m\)</span> 
+              from a different target distribution with \(m\ll N\).</li>
+          <li>We encode images from a randomly sampled subset \(\hat{\mathcal{D}}_S=\{x_i\}_{i=1}^n \subseteq\) \(\mathcal{D_S}\) and \(\mathcal{D_T}\) 
+            into the CLIP space via <span style="color: #7F7F7F;"><b>
+            (c) a CLIP image encoder</b> \(\mathcal{E_I}\)</span>, denoted as \(z_{x_i} = \mathcal{E_I}(x_i)\) and \(z_{y_j} = \mathcal{E_I}(y_j)\) respectively.</li>
+          <li>The <span style="color: #C55A11;"><b>(d) Domain Gap Extractor</b></span> 
+            captures the representation \(\Delta z\) of the distribution gap</li>
+          </ol>
+
+          <p>The right part indicates the step of <b>Target Domain Generation</b>:</p>
+          <ol start="4">
+          <li>We augment source image embeddings <span class="math">\(\{z_{x_i}\}_{i=1}^k\)</span> with domain gap embedding <span class="math">
+            \(\Delta z\)</span> to yield <span class="math">\(\{z_{y_i}\}_{i=1}^k\)</span></li>
+          <li>\(z_{y_i} = z_{x_i} + C\cdot \Delta z + \epsilon\) with perturbation 
+            \(\epsilon \sim \mathcal{N}(\mathbf{0}, 10^{-3}I)\) and edit strength \(C \sim \mathcal{N}(c, 0.05)\).</li>
+          <li><span style="color: #7F7F7F;"><b>(e) Stable UnCLIP</b></span> model converts CLIP embeddings back to <span style="color: #BF9001;"><b>
+            (f) synthetic target dataset</b></span>.</li>
+          </ol>
+          <ul>
+          <li>Optionally, control images from <span style="color: #7F7F7F;"><b>(g) Control Image Extractor</b></span> regulates generation via ControlNet.</li>
+          </ul>
+         </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Method. -->
   </div>
+
+
+  
 </section>
+
+
+
 
 
 <section class="section" id="BibTeX">
